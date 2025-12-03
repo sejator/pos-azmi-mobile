@@ -20,23 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
     _initApp();
   }
 
-  // Future<void> _initApp() async {
-  //   await ApiClient.setup();
-  //   await Future.delayed(const Duration(seconds: 1));
-
-  //   final token = await Storage.getToken();
-  //   final outlet = await Storage.getOutlet();
-
-  //   if (!mounted) return;
-
-  //   if (token == null) {
-  //     _navigateTo(const LoginScreen());
-  //   } else if (outlet == null) {
-  //     _navigateTo(const ChooseOutletScreen());
-  //   } else {
-  //     _navigateTo(MainMenuScreen(outlet: outlet));
-  //   }
-  // }
   Future<void> _initApp() async {
     await ApiClient.setup();
     await Future.delayed(const Duration(seconds: 1));

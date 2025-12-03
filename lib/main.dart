@@ -7,7 +7,7 @@ import 'package:pos_azmi/core/theme.dart';
 import 'package:pos_azmi/providers/cart_provider.dart';
 import 'package:pos_azmi/providers/order_notifier.dart';
 import 'package:pos_azmi/screens/kasir/success_screen.dart';
-import 'package:pos_azmi/screens/splash_screen.dart';
+import 'package:pos_azmi/screens/location_permission_screen.dart';
 import 'package:provider/provider.dart';
 import 'services/pusher_service.dart';
 import 'package:pos_azmi/core/navigation_service.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       title: dotenv.env['APP_NAME'] ?? 'POS Azmi',
       theme: appTheme,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const LocationPermissionScreen(),
       routes: {
         '/success': (context) => const SuccessScreen(),
       },

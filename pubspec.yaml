@@ -1,11 +1,11 @@
 name: pos_azmi
 description: "Aplikasi POS untuk penjualan."
-publish_to: 'none'
+publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ">=3.2.6 <4.0.0"
 
 dependencies:
   flutter:
@@ -15,7 +15,7 @@ dependencies:
   dio: ^5.4.0
   flutter_secure_storage: ^9.0.0
   pusher_channels_flutter: ^2.2.1
-  blue_thermal_printer: ^1.1.5 
+  blue_thermal_printer: ^1.1.5
   provider: ^6.1.5
   shared_preferences: ^2.2.3
   logger: ^2.5.0

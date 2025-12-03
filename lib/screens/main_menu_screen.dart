@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pos_azmi/core/api_client.dart';
 import 'package:pos_azmi/core/storage.dart';
-import 'package:pos_azmi/helpers/attendance_auto.dart';
 import 'package:pos_azmi/models/outlet_model.dart';
 import 'package:pos_azmi/screens/choose_outlet_screen.dart';
 import 'package:pos_azmi/screens/kasir/kasir_screen.dart';
@@ -99,9 +98,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           'icon': Icons.point_of_sale,
           'title': 'Kasir',
           'onTap': () {
-            // kirim absensi otomatis
-            AutoAttendance.submitAutoAbsensi();
-
             Navigator.push(
               context,
               MaterialPageRoute(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:pos_azmi/helpers/attendance_auto.dart';
 import 'package:pos_azmi/helpers/notifikasi_helper.dart';
-import '../services/auth_service.dart';
+import 'package:pos_azmi/services/auth_service.dart';
 import 'choose_outlet_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -42,6 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => isLoading = false);
 
     if (success && context.mounted) {
+      // kirim absensi otomatis
+      AutoAttendance.submitAutoAbsensi();
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const ChooseOutletScreen()),
@@ -66,83 +70,68 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.75,
-                child: Align(
-                  alignment: const Alignment(0, -0.5),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Center(
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/logo.png',
-                                  height: 80,
-                                ),
-                                const SizedBox(height: 20),
-                              ],
-                            ),
-                          ),
-                          TextField(
-                            controller: usernameCtrl,
-                            decoration: const InputDecoration(
-                              labelText: 'Username',
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          TextField(
-                            controller: passCtrl,
-                            obscureText: obscurePassword,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  obscurePassword
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    obscurePassword = !obscurePassword;
-                                  });
-                                },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(height: 40),
+                        Center(
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/logo.png',
+                                height: 80,
                               ),
+                              const SizedBox(height: 20),
+                            ],
+                          ),
+                        ),
+                        TextField(
+                          controller: usernameCtrl,
+                          decoration:
+                              const InputDecoration(labelText: 'Username'),
+                        ),
+                        const SizedBox(height: 12),
+                        TextField(
+                          controller: passCtrl,
+                          obscureText: obscurePassword,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () => setState(
+                                  () => obscurePassword = !obscurePassword),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: isLoading ? null : _login,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: isLoading
-                                  ? Colors.grey[600]
-                                  : Theme.of(context).colorScheme.primary,
-                              foregroundColor: Colors.white,
-                            ),
-                            child: isLoading
-                                ? SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.grey[800],
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : const Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: isLoading ? null : _login,
+                          child: isLoading
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 2),
+                                )
+                              : const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                          ),
-                        ],
-                      ),
+                                ),
+                        ),
+                        const SizedBox(height: 40),
+                      ],
                     ),
                   ),
                 ),
